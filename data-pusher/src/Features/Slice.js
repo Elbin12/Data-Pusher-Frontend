@@ -54,8 +54,7 @@ const slice = createSlice({
         })
 
         .addCase(login.fulfilled, (state, action)=>{
-            console.log(action?.payload, 'payload');
-            
+            state.success = true;
             state.accessToken = action?.payload?.access_token
             state.refreshToken = action?.payload?.refresh_token
             state.userDetails = action?.payload?.userDetails
@@ -67,7 +66,6 @@ const slice = createSlice({
 
         .addCase(login.rejected, (state, action)=>{
             state.error = action?.payload;
-            state.success = false;
         })
 
         .addCase(accountsList.pending, (state)=>{

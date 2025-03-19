@@ -7,6 +7,13 @@ function Navbar() {
   const userDetails = useSelector(state=>state.user.userDetails)
   const navigate = useNavigate();
 
+  const logout = ()=>{
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("userDetails");
+    window.location.reload();
+  }
+
   return (
     <div className='h-20 px-9 flex items-center justify-between bg-black text-white'>
       <h1 className='text-xl font-semibold'>Data-Puhser </h1>
@@ -21,7 +28,7 @@ function Navbar() {
               <h1 className='overflow-hidden text-black font-bold'>{userDetails?.username[0]}</h1>
             </div>
             <h1>{userDetails?.username}</h1>
-            <LogOut className='ml-9 hover:text-violet-950 cursor-pointer'/>
+            <LogOut className='ml-9 hover:text-violet-950 cursor-pointer' onClick={()=>{logout()}}/>
           </div>
         </>
         :

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DeleteIcon, Edit2 } from 'lucide-react';
+import { DeleteIcon, Edit2, PlusIcon } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccout } from '../../Features/Action';
 import { reset } from '../../Features/Slice';
@@ -8,7 +8,6 @@ import EditDestination from '../Destinations/EditDestination';
 
 function Account({setSelectedAccount, setPopup, account}) {
 
-    const [destPopup, setDestPopup] = useState();
     const [selectedDest, setSelectedDest] = useState();
 
     const success = useSelector(state=>state.user.success)
@@ -27,20 +26,13 @@ function Account({setSelectedAccount, setPopup, account}) {
     const handleDelete = ()=> {
         dispatch(deleteAccout({id:account?.id}))
     }
-
-    console.log(destPopup, 'ddd');
     
 
   return (
     <>
-        {destPopup==='all_dests'?
-            <AllDestinations setSelectedDest={setSelectedDest} setDestPopup={setDestPopup} account={account}/>
-            :
-        destPopup==='edit_dest'?
-            <EditDestination destination={selectedDest} setDestPopup={setDestPopup}/>
-            :
+        
             <div className=' border rounded-lg py-2 px-4 flex justify-between items-center'>
-                <div onClick={()=>{setPopup('send_message'); setSelectedAccount(account)}}>
+                <div className='cursor-pointer' onClick={()=>{setPopup('send_message'); setSelectedAccount(account)}}>
                     <h1 className='font-semibold text-xl'>{account?.name}</h1>
                     <h1 className='font-light'>{account?.email}</h1>
                     <h1 className='italic text-sm'>Website: <span className='not-italic'>{account?.website?account?.website:'null'}</span></h1>
@@ -51,10 +43,11 @@ function Account({setSelectedAccount, setPopup, account}) {
                         <h1>Edit</h1>
                     </div>
                 </div>
-                <div className='cursor-pointer' onClick={()=>{setPopup('add_dest'); setSelectedAccount(account)}}>
+                <div className='cursor-pointer flex gap-1' onClick={()=>{setPopup('add_dest'); setSelectedAccount(account)}}>
+                    <PlusIcon />
                     <h1>Add Destinations</h1>
                 </div>
-                <div className='cursor-pointer' onClick={()=>{setDestPopup('all_dests')}}>
+                <div className='cursor-pointer' onClick={()=>{setPopup('all_dests'); setSelectedAccount(account) }}>
                     <h1>Show All Destinations</h1>
                 </div>
                 <div className=''>
@@ -64,7 +57,7 @@ function Account({setSelectedAccount, setPopup, account}) {
                     </div>
                 </div>
             </div>
-        }
+
     </>
   )
 }

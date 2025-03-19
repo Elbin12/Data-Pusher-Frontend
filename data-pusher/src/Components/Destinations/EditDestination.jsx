@@ -14,7 +14,7 @@ function EditDestination({ account, destination, setDestPopup }) {
 
     useEffect(() => {
         if (success) {
-          setDestPopup('all_dests');
+          setDestPopup('');
             dispatch(reset());
         } else if (error) {
             console.log(error, 'error');

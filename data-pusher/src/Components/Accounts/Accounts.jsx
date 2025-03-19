@@ -6,10 +6,14 @@ import AddAccount from './AddAccount';
 import EditAccount from './EditAccount';
 import AddDestination from '../Destinations/AddDestination';
 import SendMessage from '../SendMessage';
+import AllDestinations from '../Destinations/AllDestinations';
+import EditDestination from '../Destinations/EditDestination';
 
 function Accounts() {
 
     const [popup, setPopup] = useState('');
+    const [selectedDest, setSelectedDest] = useState('');
+
     const pending = useSelector(state=>state.user.pending);
     const accounts = useSelector(state=>state.user.accounts);
 
@@ -37,6 +41,12 @@ function Accounts() {
         popup == 'send_message'?
           <SendMessage account={selectedAccount} setPopup={setPopup}/>
           :
+          popup==='all_dests'?
+            <AllDestinations setSelectedDest={setSelectedDest} setDestPopup={setPopup} account={selectedAccount}/>
+            :
+          popup==='edit_dest'?
+            <EditDestination destination={selectedDest} setDestPopup={setPopup}/>
+            :
         <div className='space-y-9'>
           <div className='flex justify-between pt-14 w-3/4'>
             <h1 className='text-3xl'>Accounts</h1>

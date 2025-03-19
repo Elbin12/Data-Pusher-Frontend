@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import {useDispatch, useSelector} from 'react-redux';
 import InputField from "../Login/InputField";
 import PasswordField from "../Login/PasswordField";
-import { signup } from "../../Features/Action";
+import { signup } from "../../Features/Action"; 
+import {toast} from 'sonner';
 
 function Signup() {
 
@@ -14,6 +15,7 @@ function Signup() {
   useEffect(()=>{
     if (success){
       console.log(success)
+      toast('Sign Up successfully');
     }
     if (error){
       console.log(error, 'error')

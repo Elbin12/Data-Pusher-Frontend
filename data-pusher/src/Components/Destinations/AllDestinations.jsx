@@ -2,6 +2,7 @@ import { CircleX, Delete, Edit2, Link } from 'lucide-react'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteDestination } from '../../Features/Action';
+import { reset } from '../../Features/Slice';
 
 function AllDestinations({setSelectedDest, setDestPopup, account}) {
 
@@ -9,12 +10,14 @@ function AllDestinations({setSelectedDest, setDestPopup, account}) {
 
   const handleDestDelete = (id)=>{
     dispatch(deleteDestination({id:id, account:account?.id}))
+    dispatch(reset())
+    setDestPopup('')
   }
   
   return (
-    <div className=' w-3/5 absolute border space-y-6 rounded-lg px-4 py-3'>
+    <div className=' w-3/6 absolute border space-y-6 rounded-lg px-4 py-3 mt-24'>
       <div className='flex justify-between items-center'>
-        <h1 className='text-3xl font-semibold'>All Destinations</h1>
+        <h1 className='text-3xl font-semibold'>All Destinations for {account?.name}</h1>
         <CircleX className="text-white cursor-pointer" onClick={() => setDestPopup('')} />
       </div>
       <div className='flex flex-col gap-4 px-3'>

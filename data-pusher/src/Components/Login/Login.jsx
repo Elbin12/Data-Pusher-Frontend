@@ -4,6 +4,8 @@ import InputField from "./InputField";
 import PasswordField from "./PasswordField";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Features/Action";
+import { toast } from "sonner";
+import { reset } from "../../Features/Slice";
 
 function Login() {
 
@@ -15,11 +17,16 @@ function Login() {
   useEffect(()=>{
     if(error){
       console.log('error from login', error)
+      toast.error(error.error)
     }
     if (success){
       console.log('successfully logined.')
+      toast.success('Sign In successfull')
+      dispatch(reset())
     }
   }, [success, error])
+
+  console.log(success, error, 'kdkkdkjd')
 
   const {
     register,
