@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createAccout } from '../../Features/Action';
 import { reset } from '../../Features/Slice';
 
-function AddAccount({role, account, setPopup }) {
+function AddAccount({setPopup }) {
 
     const success = useSelector(state=>state.user.success)
     const error = useSelector(state=>state.user.error)
@@ -30,11 +30,7 @@ function AddAccount({role, account, setPopup }) {
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
-    if (role === 'add'){
-      dispatch(createAccout(data));
-    }else if(role === 'edit'){
-      dispatch()
-    }
+    dispatch(createAccout(data));
   };
 
   return (

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AccountsListService, CreateAccountService, DeleteAccountService, LoginService, SignupService, UpdateAccountService } from "./Service";
+import { AccountsListService, CreateAccountService, CreateDestinationService, DeleteAccountService, DeleteDestinationService, LoginService, SignupService, UpdateAccountService, UpdateDestinationService } from "./Service";
 
 export const signup = createAsyncThunk(
     'signup',
@@ -74,4 +74,40 @@ export const deleteAccout = createAsyncThunk(
             return rejectWithValue(error?.response?.data);
         }
     }
-)
+);
+
+export const createDestination = createAsyncThunk(
+    'createDestination',
+    async (data, {rejectWithValue}) =>{
+        try{
+            const response = await CreateDestinationService(data);
+            return response.data;
+        }catch(error){
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);
+
+export const updateDestination = createAsyncThunk(
+    'updateDestination',
+    async (data, {rejectWithValue}) =>{
+        try{
+            const response = await UpdateDestinationService(data);
+            return response.data;
+        }catch(error){
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);
+
+export const deleteDestination = createAsyncThunk(
+    'deleteDestination',
+    async (data, {rejectWithValue}) =>{
+        try{
+            const response = await DeleteDestinationService(data);
+            return response.data;
+        }catch(error){
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);

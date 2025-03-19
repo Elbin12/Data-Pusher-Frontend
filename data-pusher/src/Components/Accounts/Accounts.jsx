@@ -4,6 +4,8 @@ import { accountsList } from '../../Features/Action';
 import Account from './Account';
 import AddAccount from './AddAccount';
 import EditAccount from './EditAccount';
+import AddDestination from '../Destinations/AddDestination';
+import SendMessage from '../SendMessage';
 
 function Accounts() {
 
@@ -24,10 +26,16 @@ function Accounts() {
   return (
     <div className='h-screen bg-black text-white px-32 relative'>
       {popup == 'add'?
-        <AddAccount role={'add'} setPopup={setPopup}/>
+        <AddAccount setPopup={setPopup}/>
           :
         popup=='edit'?
         <EditAccount account={selectedAccount} setPopup={setPopup}/>
+          :
+        popup == 'add_dest'?
+        <AddDestination account={selectedAccount} setPopup={setPopup}/>
+          :
+        popup == 'send_message'?
+          <SendMessage account={selectedAccount} setPopup={setPopup}/>
           :
         <div className='space-y-9'>
           <div className='flex justify-between pt-14 w-3/4'>
@@ -41,7 +49,7 @@ function Accounts() {
 
             :
 
-            <div className=' w-3/4 space-y-4'>
+            <div className=' w-3/4 space-y-4 '>
               {accounts?.map((account, index)=>(
                   <Account setSelectedAccount={setSelectedAccount} setPopup={setPopup} key={index} account={account}/>
               ))}

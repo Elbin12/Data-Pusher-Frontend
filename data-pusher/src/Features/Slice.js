@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { accountsList, createAccout, deleteAccout, login, signup, updateAccout } from './Action';
+import { accountsList, createAccout, createDestination, deleteAccout, deleteDestination, login, signup, updateAccout, updateDestination } from './Action';
 
 
 const access_token = localStorage.getItem("access_token");
@@ -112,6 +112,56 @@ const slice = createSlice({
         })
 
         .addCase(deleteAccout.rejected, (state, action)=>{
+            state.error = action?.payload;
+        })
+
+        .addCase(createDestination.fulfilled, (state, action)=>{
+            state.success = true;
+            state.accounts = state.accounts.map(account=>
+                account.id === action?.payload?.account 
+                    ? {
+                        ...account, 
+                        destinations:account.destinations
+                        ?[ ...account.destinations ,action.payload]
+                        : [action.payload]
+                    } 
+                    : account
+            )
+        })
+
+        .addCase(createDestination.rejected, (state, action)=>{
+            state.error = action?.payload;
+        })
+
+        .addCase(updateDestination.fulfilled, (state, action)=>{
+            state.success = true;
+            state.accounts = state.accounts?.map(account=>
+                account.id === action?.payload?.account ? {
+                    ...account, 
+                    destinations:account.destinations.map(destination =>
+                        destination.id === action?.payload?.id ? action?.payload : destination
+                    )
+                }
+                : account
+            )
+        })
+
+        .addCase(updateDestination.rejected, (state, action)=>{
+            state.error = action?.payload;
+        })
+
+        .addCase(deleteDestination.fulfilled, (state, action)=>{
+            console.log('data, flfklf', action?.meta.arg)
+            state.success = true;
+            state.accounts = state.accounts.map(account=>
+                account.id === action?.meta.arg.account?
+                {...account, destinations:account.destinations?.filter(destination=>destination.id !== action?.meta.arg.id)}
+                :
+                account
+            )
+        })
+
+        .addCase(deleteDestination.rejected, (state, action)=>{
             state.error = action?.payload;
         })
     }
