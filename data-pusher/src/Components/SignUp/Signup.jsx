@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useNavigate } from "react";
 import { useForm } from "react-hook-form";
 import {useDispatch, useSelector} from 'react-redux';
 import InputField from "../Login/InputField";
@@ -11,11 +11,13 @@ function Signup() {
   const dispatch= useDispatch();
   const success = useSelector(state=>state.user.success)
   const error = useSelector(state=>state.user.error)
+  const navigate = useNavigate();
 
   useEffect(()=>{
     if (success){
       console.log(success)
       toast('Sign Up successfully');
+      navigate('/login');
     }
     if (error){
       console.log(error, 'error')
