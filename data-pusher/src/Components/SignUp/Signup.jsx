@@ -1,4 +1,5 @@
-import React, { useEffect, useNavigate } from "react";
+import React, { useEffect } from "react";
+import {useNavigate} from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import {useDispatch, useSelector} from 'react-redux';
 import InputField from "../Login/InputField";
