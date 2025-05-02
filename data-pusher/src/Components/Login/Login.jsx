@@ -9,9 +9,7 @@ import { reset } from "../../Features/Slice";
 
 function Login() {
 
-  const success = useSelector(state=>state.user.success)
-  const error = useSelector(state=>state.user.error)
-  const pending = useSelector(state=>state.user.pending)
+  const {success, error, pending} = useSelector(state=>state.user)
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -63,7 +61,12 @@ function Login() {
             </div>
           </div>
 
-          <button type="submit" className="bg-[#1b202e] text-xl py-2 px-9 rounded font-semibold"> Sign In </button>
+          <div className="bg-[#1b202e] w-fit text-xl py-2 px-9 rounded font-semibold flex items-center justify-center gap-2">
+            {pending ? 
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>:
+                  <button type="submit" >Sign In</button>
+              }
+          </div>
         </form>
       </div>
     </div>
