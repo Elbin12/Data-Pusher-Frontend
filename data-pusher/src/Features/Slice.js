@@ -65,6 +65,7 @@ const slice = createSlice({
         })
 
         .addCase(login.rejected, (state, action)=>{
+            state.pending = false;
             state.error = action?.payload;
         })
 
